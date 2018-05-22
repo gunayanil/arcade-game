@@ -1,9 +1,8 @@
+'use strict';
 const score = document.getElementById('score');
 const getLevel = document.getElementById('level');
 let breakpoint = true;
-let point = 0;
-let level = 0;
-let allEnemies = [];
+const allEnemies = [];
 
 let Enemy = function(x, y, speed) {
     this.x = x; //horizontal
@@ -13,7 +12,7 @@ let Enemy = function(x, y, speed) {
 };
 
 for(let i=0; i<3; i++) {
-	let enemy = new Enemy(-300, 40+i*90);
+	const enemy = new Enemy(-300, 40+i*90);
 	allEnemies.push(enemy);
 }
 
@@ -32,11 +31,13 @@ Enemy.prototype.render = function() {
 };
 
 
-let Player = function(x, y, hearts) {
+let Player = function(x, y, hearts, point, level) {
 	this.sprite = 'images/char-horn-girl.png';
 	this.x = 200;
 	this.y = 400;
 	this.hearts = 3;
+	this.point = 0;
+	this.level = 0;
 };
 
 Player.prototype.render = function(){
@@ -49,44 +50,43 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.update = function(){
-	var player = this;
-	allEnemies.forEach(function(enemy) {
-		if(player.y === enemy.y) {
-			if(player.x >= enemy.x - 60 && player.x <= enemy.x + 60){
+	allEnemies.forEach(enemy=> {
+		if(this.y === enemy.y) {
+			if(this.x >= enemy.x - 60 && this.x <= enemy.x + 60){
 				{
-					player.hearts -= 1;
-					ctx.fillText(`${player.hearts} x`, 410, 35);
-					player.x= 200;
-					player.y = 400;
+					this.hearts -= 1;
+					ctx.fillText(`${this.hearts} x`, 410, 35);
+					this.x= 200;
+					this.y = 400;
 
 				}
 			}
 		}
 	});
 
-	if(player.hearts === 0) {
-		point = 0;
-		score.textContent = point;
+	if(this.hearts === 0) {
+		this.point = 0;
+		score.textContent = this.point;
 		breakpoint = false;
 		player.reset();
 	}
 
-	if(breakpoint && player.y < 40) { // reaches the water
-		point += 100;
+	if(breakpoint && this.y < 40) { // reaches the water
+		this.point += 100;
 		levelUpdate();
-		score.textContent = point;
-		player.x = 200;
-		player.y = 400;
+		score.textContent = this.point;
+		this.x = 200;
+		this.y = 400;
 	}
 };
 
 Player.prototype.reset = function() {
-	level = 0;
-	getLevel.textContent = level;
+	this.level = 0;
+	getLevel.textContent = this.level;
 	breakpoint= true;
-	player.hearts = 3;
-	player.x = 200;
-	player.y = 400;
+	this.hearts = 3;
+	this.x = 200;
+	this.y = 400;
 	allEnemies.forEach(function(enemy){
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
 
@@ -95,11 +95,11 @@ Player.prototype.reset = function() {
 };
 
 function levelUpdate() {
-	level++;
+	player.level++;
 	allEnemies.forEach(function(enemy){
 		enemy.speed *= 1.25;
 	});
-	getLevel.textContent = level;
+	getLevel.textContent = player.level;
 
 }
 
