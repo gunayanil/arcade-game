@@ -3,7 +3,7 @@ const getLevel = document.getElementById('level');
 let breakpoint = true;
 let point = 0;
 let level = 0;
-
+let allEnemies = [];
 
 let Enemy = function(x, y, speed) {
     this.x = x; //horizontal
@@ -12,9 +12,10 @@ let Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
 };
 
-let enemy1 = new Enemy(-300, 40);
-let enemy2 = new Enemy(-300, 130);
-let enemy3 = new Enemy(-300, 220);
+for(let i=0; i<3; i++) {
+	let enemy = new Enemy(-300, 40+i*90);
+	allEnemies.push(enemy);
+}
 
 
 Enemy.prototype.update = function(dt) {
@@ -36,7 +37,7 @@ let Player = function(x, y, hearts) {
 	this.x = 200;
 	this.y = 400;
 	this.hearts = 3;
-}
+};
 
 Player.prototype.render = function(){
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -77,9 +78,7 @@ Player.prototype.update = function(){
 		player.x = 200;
 		player.y = 400;
 	}
-
-
-}
+};
 
 Player.prototype.reset = function() {
 	level = 0;
@@ -89,17 +88,17 @@ Player.prototype.reset = function() {
 	player.x = 200;
 	player.y = 400;
 	allEnemies.forEach(function(enemy){
-	enemy.speed = Math.floor(Math.random() * 110) + 55;
+		enemy.speed = Math.floor(Math.random() * 110) + 55;
 
-	})
+	});
 
-}
+};
 
 function levelUpdate() {
-	level++
+	level++;
 	allEnemies.forEach(function(enemy){
 		enemy.speed *= 1.25;
-	})
+	});
 	getLevel.textContent = level;
 
 }
@@ -120,10 +119,9 @@ Player.prototype.handleInput = function(key) {
 	if(key === "left" && this.x > 0) {
 		this.x -= 100;
 	}
-}
+};
 
 
-let allEnemies = [enemy1, enemy2, enemy3];
 let player = new Player();
 
 document.addEventListener('keyup', function(e) {
