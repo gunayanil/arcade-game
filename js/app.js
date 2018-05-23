@@ -3,19 +3,54 @@ const score = document.getElementById('score');
 const getLevel = document.getElementById('level');
 let breakpoint = true;
 const allEnemies = [];
+const allHearts = [];
 
-let Enemy = function(x, y, speed) {
-    this.x = x; //horizontal
-    this.y = y; // vertical
-    this.speed = Math.floor(Math.random() * 110) + 55;
-    this.sprite = 'images/enemy-bug.png';
+// Sound
+let Sound = function(src) {
+	this.sound = document.createElement("audio");
+	this.sound.src = src;
+	this.sound.setAttribute("preload", "auto");
+	this.sound.setAttribute("controls", "none");
+	this.sound.style.display = "none";
+	document.body.appendChild(this.sound);
+	this.play = function(){
+		this.sound.play();
+	};
+	this.stop = function(){
+		this.sound.pause();
+	};
 };
 
+
+let Heart = function(x, y){
+	this.x = x;
+	this.y = y;
+	this.sprite = 'images/Heart.png';
+}
+
+Heart.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 40, 70);
+}
+
+for(let i=0; i<3; i++) {
+	const heart = new Heart(380+i*40, -10);
+	allHearts.push(heart);
+}
+
+
+let Enemy = function(x, y, speed, sound) {
+    this.x = x; //horizontal
+    this.y = y; //vertical
+    this.speed = Math.floor(Math.random() * 110) + 55;
+    this.sprite = 'images/enemy-bug.png';
+    this.sound = new Sound("sounds/collision.wav");
+};
+
+//Enemies - Bugs
 for(let i=0; i<3; i++) {
 	const enemy = new Enemy(-300, 40+i*90);
 	allEnemies.push(enemy);
 }
-
 
 Enemy.prototype.update = function(dt) {
  if(this.x <= 505) {  //canvas.width = 505
@@ -31,34 +66,30 @@ Enemy.prototype.render = function() {
 };
 
 
-let Player = function(x, y, hearts, point, level) {
+let Player = function(x, y, hearts, point, level, sound) {
 	this.sprite = 'images/char-horn-girl.png';
 	this.x = 200;
 	this.y = 400;
 	this.hearts = 3;
 	this.point = 0;
 	this.level = 0;
+	this.sound = new Sound("sounds/step.wav");
 };
 
 Player.prototype.render = function(){
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-	ctx.font = '700 23pt Open Sans';
-	ctx.fillStyle = '#F94900';
-	ctx.fillText(`${player.hearts} x`, 410, 35);
-
-
 };
 
 Player.prototype.update = function(){
 	allEnemies.forEach(enemy=> {
 		if(this.y === enemy.y) {
 			if(this.x >= enemy.x - 60 && this.x <= enemy.x + 60){
-				{
+				{	
+					allHearts.shift();
 					this.hearts -= 1;
-					ctx.fillText(`${this.hearts} x`, 410, 35);
-					this.x= 200;
+					if(this.hearts !=0){enemy.sound.play();}
+					this.x = 200;
 					this.y = 400;
-
 				}
 			}
 		}
@@ -68,10 +99,12 @@ Player.prototype.update = function(){
 		this.point = 0;
 		score.textContent = this.point;
 		breakpoint = false;
+		let gameOver = new Sound("sounds/game-over.wav");
+		gameOver.play();
 		player.reset();
 	}
-
-	if(breakpoint && this.y < 40) { // reaches the water
+	// reaches the water
+	if(breakpoint && this.y < 40) { 
 		this.point += 100;
 		levelUpdate();
 		score.textContent = this.point;
@@ -89,9 +122,14 @@ Player.prototype.reset = function() {
 	this.y = 400;
 	allEnemies.forEach(function(enemy){
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
-
 	});
+	gem.x = Math.floor(Math.random()*5) * 100;
+	gem.y = Math.floor(Math.random()*3) * 80 + 70;
 
+	for(let i=0; i<3; i++) {
+		const heart = new Heart(380+i*40, -10);
+		allHearts.push(heart);
+	}
 };
 
 function levelUpdate() {
@@ -99,29 +137,63 @@ function levelUpdate() {
 	allEnemies.forEach(function(enemy){
 		enemy.speed *= 1.25;
 	});
+
 	getLevel.textContent = player.level;
+	gem = new Gem();
+	gem.x = Math.floor(Math.random()*5) * 100;
+	gem.y = Math.floor(Math.random()*3) * 80 + 70;
 
 }
 
 Player.prototype.handleInput = function(key) {
 	if(key === "up" && this.y > 0){
 		this.y -= 90;
+		this.sound.play();
 	}
 
 	if(key === "down" && this.y < 400){
 		this.y += 90;
+		this.sound.play();
 	}
 
 	if(key === "right" && this.x < 400){
 		this.x += 100;
+		this.sound.play();
 	}
 
 	if(key === "left" && this.x > 0) {
 		this.x -= 100;
+		this.sound.play();
 	}
 };
 
+let Gem = function(x, y, sound) {
+	let gemImages = ['images/gem-blue.png',
+	'images/gem-orange.png',
+	'images/gem-green.png'];
+	this.sprite = gemImages[Math.floor(Math.random()*3)];
+	this.x = Math.floor(Math.random()*5) * 100;
+	this.y = Math.floor(Math.random()*3)*80 +70;
+	this.sound = new Sound("sounds/won-gem.wav");
+};
 
+Gem.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 100, 145);
+};
+
+Gem.prototype.update = function() {
+	if(this.x === player.x) {
+		if(player.y >= this.y - 50 && player.y <= this.y + 50){
+			this.sound.play();
+			player.point += 200;
+			score.textContent = player.point;
+			this.x = -200;
+			this.y = -200;
+		}
+	}
+};
+
+let gem  = new Gem();
 let player = new Player();
 
 document.addEventListener('keyup', function(e) {
@@ -131,6 +203,5 @@ document.addEventListener('keyup', function(e) {
 		39: 'right',
 		40: 'down'
 	};
-
 	player.handleInput(allowedKeys[e.keyCode]);
 });
