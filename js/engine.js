@@ -96,6 +96,7 @@
      	});
 
      	player.update();
+     	gem.update();
 
      }
 
@@ -110,11 +111,6 @@
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-         // or(let put = 0; put < 3; put++) {
-          
-
-         
-
          var rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
@@ -169,6 +165,11 @@
          });
 
          player.render();
+         gem.render();
+
+        allHearts.forEach(function(heart){
+            heart.render();
+         })
 
      }
 
