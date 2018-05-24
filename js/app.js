@@ -26,15 +26,17 @@ let Heart = function(x, y){
 	this.x = x;
 	this.y = y;
 	this.sprite = 'images/Heart.png';
-}
+};
 
 Heart.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 40, 70);
-}
+};
 
+function putHearts() {
 for(let i=0; i<3; i++) {
 	const heart = new Heart(380+i*40, -10);
 	allHearts.push(heart);
+}
 }
 
 
@@ -46,10 +48,11 @@ let Enemy = function(x, y, speed, sound) {
     this.sound = new Sound("sounds/collision.wav");
 };
 
-//Enemies - Bugs
+function putEnemies() {
 for(let i=0; i<3; i++) {
 	const enemy = new Enemy(-300, 40+i*90);
 	allEnemies.push(enemy);
+}
 }
 
 Enemy.prototype.update = function(dt) {
@@ -87,7 +90,7 @@ Player.prototype.update = function(){
 				{	
 					allHearts.shift();
 					this.hearts -= 1;
-					if(this.hearts !=0){enemy.sound.play();}
+					if(this.hearts !== 0){enemy.sound.play();}
 					this.x = 200;
 					this.y = 400;
 				}
@@ -123,13 +126,9 @@ Player.prototype.reset = function() {
 	allEnemies.forEach(function(enemy){
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
 	});
-	gem.x = Math.floor(Math.random()*5) * 100;
-	gem.y = Math.floor(Math.random()*3) * 80 + 70;
-
-	for(let i=0; i<3; i++) {
-		const heart = new Heart(380+i*40, -10);
-		allHearts.push(heart);
-	}
+	
+	gem = new Gem();
+	putHearts();
 };
 
 function levelUpdate() {
@@ -140,9 +139,6 @@ function levelUpdate() {
 
 	getLevel.textContent = player.level;
 	gem = new Gem();
-	gem.x = Math.floor(Math.random()*5) * 100;
-	gem.y = Math.floor(Math.random()*3) * 80 + 70;
-
 }
 
 Player.prototype.handleInput = function(key) {
@@ -195,6 +191,8 @@ Gem.prototype.update = function() {
 
 let gem  = new Gem();
 let player = new Player();
+putHearts();
+putEnemies();
 
 document.addEventListener('keyup', function(e) {
 	var allowedKeys = {
