@@ -143,7 +143,7 @@
              }
          }
 
-         ctx.drawImage(Resources.get('images/Heart.png'), 455, -15, 50, 80);
+         // ctx.drawImage(Resources.get('images/Heart.png'), 455, -15, 50, 80);
             
          renderEntities();
          
