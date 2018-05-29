@@ -102,7 +102,7 @@ Player.prototype.update = function(){
 		this.point = 0;
 		score.textContent = this.point;
 		breakpoint = false;
-		let gameOver = new Sound("sounds/game-over.wav");
+		const gameOver = new Sound("sounds/game-over.wav");
 		gameOver.play();
 		player.reset();
 	}
