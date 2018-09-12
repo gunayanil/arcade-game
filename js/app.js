@@ -168,7 +168,7 @@ let Gem = function(x, y, sound) {
 	'images/gem-orange.png',
 	'images/gem-green.png'];
 	this.sprite = gemImages[Math.floor(Math.random()*3)];
-	this.x = Math.floor(Math.random()*5) * 100;
+	this.x = Math.floor(Math.random()*6) * 100;
 	this.y = Math.floor(Math.random()*3)*80 +70;
 	this.sound = new Sound("sounds/won-gem.wav");
 };
