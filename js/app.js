@@ -34,7 +34,7 @@ Heart.prototype.render = function() {
 
 function putHearts() {
 for(let i=0; i<3; i++) {
-	const heart = new Heart(380+i*40, -10);
+	const heart = new Heart(580+i*40, -10);
 	allHearts.push(heart);
 }
 }
@@ -56,7 +56,7 @@ for(let i=0; i<3; i++) {
 }
 
 Enemy.prototype.update = function(dt) {
- if(this.x <= 707) {  //canvas.width = 505
+ if(this.x <= 707) {  //canvas.width = 707
  	this.x = this.x + this.speed * dt;
  } else {
  	this.x = -10;
