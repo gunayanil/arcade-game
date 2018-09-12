@@ -193,11 +193,11 @@
         ctx.fillStyle = "#226178";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.font = "small-caps 40pt arial";
+        ctx.font = "small-caps 50pt arial";
         ctx.textAlign = "center";
 
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
+        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = "#fff";
         ctx.lineWidth = 3;
 
         var line = "Choose Character";
