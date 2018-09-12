@@ -71,7 +71,7 @@ Enemy.prototype.render = function() {
 
 let Player = function(x, y, hearts, point, level, sound) {
 	this.sprite = 'images/char-horn-girl.png';
-	this.x = 200;
+	this.x = 300;
 	this.y = 400;
 	this.hearts = 3;
 	this.point = 0;
@@ -104,7 +104,8 @@ Player.prototype.update = function(){
 		breakpoint = false;
 		const gameOver = new Sound("sounds/game-over.wav");
 		gameOver.play();
-		player.reset();
+		player.reset()
+
 	}
 	// reaches the water
 	if(breakpoint && this.y < 40) { 
@@ -121,7 +122,7 @@ Player.prototype.reset = function() {
 	getLevel.textContent = this.level;
 	breakpoint= true;
 	this.hearts = 3;
-	this.x = 200;
+	this.x = 300;
 	this.y = 400;
 	allEnemies.forEach(function(enemy){
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
@@ -181,7 +182,7 @@ Gem.prototype.update = function() {
 	if(this.x === player.x) {
 		if(player.y >= this.y - 50 && player.y <= this.y + 50){
 			this.sound.play();
-			player.point += 200;
+			player.point += 100;
 			score.textContent = player.point;
 			this.x = -200;
 			this.y = -200;
