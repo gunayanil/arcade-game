@@ -56,7 +56,7 @@ for(let i=0; i<3; i++) {
 }
 
 Enemy.prototype.update = function(dt) {
- if(this.x <= 505) {  //canvas.width = 505
+ if(this.x <= 707) {  //canvas.width = 505
  	this.x = this.x + this.speed * dt;
  } else {
  	this.x = -10;
@@ -152,7 +152,7 @@ Player.prototype.handleInput = function(key) {
 		this.sound.play();
 	}
 
-	if(key === "right" && this.x < 400){
+	if(key === "right" && this.x < 600){
 		this.x += 100;
 		this.sound.play();
 	}
