@@ -47,6 +47,7 @@
          * function again as soon as the browser is able to draw another frame.
          */
          win.requestAnimationFrame(main);
+
      }
 
     // Initial setup
@@ -179,8 +180,8 @@
              * and call main method.
              */
                 player.sprite = characters[selector.col - 1];
-                levelEndTime = Date.now();
                 main();
+                player.reset();
             }
         });
     }
