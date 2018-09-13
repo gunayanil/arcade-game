@@ -69,8 +69,8 @@ Enemy.prototype.render = function() {
 };
 
 
-let Player = function(x, y, hearts, point, level, sound) {
-	this.sprite = 'images/char-horn-girl.png';
+let Player = function(sprite, x, y, hearts, point, level, sound) {
+	this.sprite = sprite;
 	this.x = 300;
 	this.y = 400;
 	this.hearts = 3;
@@ -84,14 +84,14 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.update = function(){
-	allEnemies.forEach(enemy=> {
+	allEnemies.forEach(enemy => {
 		if(this.y === enemy.y) {
 			if(this.x >= enemy.x - 60 && this.x <= enemy.x + 60){
 				{	
 					allHearts.shift();
 					this.hearts -= 1;
 					if(this.hearts !== 0){enemy.sound.play();}
-					this.x = 200;
+					this.x = 300;
 					this.y = 400;
 				}
 			}
@@ -104,6 +104,7 @@ Player.prototype.update = function(){
 		breakpoint = false;
 		const gameOver = new Sound("sounds/game-over.wav");
 		gameOver.play();
+		putHearts();
 		player.reset()
 
 	}
@@ -128,8 +129,7 @@ Player.prototype.reset = function() {
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
 	});
 	
-	gem = new Gem();
-	putHearts();
+	// gem = new Gem();
 };
 
 function levelUpdate() {
