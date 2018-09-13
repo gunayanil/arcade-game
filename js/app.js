@@ -6,7 +6,7 @@ const allEnemies = [];
 const allHearts = [];
 
 // Sound
-let Sound = function(src) {
+const Sound = function(src) {
 	this.sound = document.createElement("audio");
 	this.sound.src = src;
 	this.sound.setAttribute("preload", "auto");
@@ -22,7 +22,7 @@ let Sound = function(src) {
 };
 
 
-let Heart = function(x, y){
+const Heart = function(x, y){
 	this.x = x;
 	this.y = y;
 	this.sprite = 'images/Heart.png';
@@ -40,7 +40,7 @@ for(let i=0; i<3; i++) {
 }
 
 
-let Enemy = function(x, y, speed, sound) {
+const Enemy = function(x, y, speed, sound) {
     this.x = x; //horizontal
     this.y = y; //vertical
     this.speed = Math.floor(Math.random() * 110) + 55;
@@ -49,7 +49,7 @@ let Enemy = function(x, y, speed, sound) {
 };
 
 function putEnemies() {
-for(let i=0; i<3; i++) {
+for(let i = 0; i < 3; i++) {
 	const enemy = new Enemy(-300, 40+i*90);
 	allEnemies.push(enemy);
 }
@@ -69,7 +69,7 @@ Enemy.prototype.render = function() {
 };
 
 
-let Player = function(sprite, x, y, hearts, point, level, sound) {
+const Player = function(sprite, x, y, hearts, point, level, sound) {
 	this.sprite = sprite;
 	this.x = 300;
 	this.y = 400;
@@ -128,8 +128,6 @@ Player.prototype.reset = function() {
 	allEnemies.forEach(function(enemy){
 		enemy.speed = Math.floor(Math.random() * 110) + 55;
 	});
-	
-	// gem = new Gem();
 };
 
 function levelUpdate() {
@@ -164,7 +162,7 @@ Player.prototype.handleInput = function(key) {
 	}
 };
 
-let Gem = function(x, y, sound) {
+const Gem = function(x, y, sound) {
 	let gemImages = ['images/gem-blue.png',
 	'images/gem-orange.png',
 	'images/gem-green.png'];
@@ -191,7 +189,7 @@ Gem.prototype.update = function() {
 };
 
 let gem  = new Gem();
-let player = new Player();
+const player = new Player();
 putHearts();
 putEnemies();
 
