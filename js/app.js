@@ -21,7 +21,7 @@ const Sound = function(src) {
 	};
 };
 
-
+// Heart
 const Heart = function(x, y){
 	this.x = x;
 	this.y = y;
@@ -32,14 +32,15 @@ Heart.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 40, 70);
 };
 
+// Put 3 hearts/lives for initial status of the game
 function putHearts() {
-for(let i=0; i<3; i++) {
-	const heart = new Heart(580+i*40, -10);
-	allHearts.push(heart);
-}
+	for(let i=0; i<3; i++) {
+		const heart = new Heart(580+i*40, -10);
+		allHearts.push(heart);
+	}
 }
 
-
+// Enemy
 const Enemy = function(x, y, speed, sound) {
     this.x = x; //horizontal
     this.y = y; //vertical
@@ -48,11 +49,12 @@ const Enemy = function(x, y, speed, sound) {
     this.sound = new Sound("sounds/collision.wav");
 };
 
+// Put 3 enemy bugs for initial status of the game
 function putEnemies() {
-for(let i = 0; i < 3; i++) {
-	const enemy = new Enemy(-300, 40+i*90);
-	allEnemies.push(enemy);
-}
+	for(let i = 0; i < 3; i++) {
+		const enemy = new Enemy(-300, 40+i*90);
+		allEnemies.push(enemy);
+	}
 }
 
 Enemy.prototype.update = function(dt) {
@@ -68,7 +70,7 @@ Enemy.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
+// Player
 const Player = function(sprite, x, y, hearts, point, level, sound) {
 	this.sprite = sprite;
 	this.x = 300;
@@ -83,6 +85,7 @@ Player.prototype.render = function(){
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Check collision
 Player.prototype.update = function(){
 	allEnemies.forEach(enemy => {
 		if(this.y === enemy.y) {
@@ -121,7 +124,7 @@ Player.prototype.update = function(){
 Player.prototype.reset = function() {
 	this.level = 0;
 	getLevel.textContent = this.level;
-	breakpoint= true;
+	breakpoint = true;
 	this.hearts = 3;
 	this.x = 300;
 	this.y = 400;
@@ -140,6 +143,7 @@ function levelUpdate() {
 	gem = new Gem();
 }
 
+// Handle keyboard inputs
 Player.prototype.handleInput = function(key) {
 	if(key === "up" && this.y > 0){
 		this.y -= 90;
@@ -162,6 +166,7 @@ Player.prototype.handleInput = function(key) {
 	}
 };
 
+// Gem
 const Gem = function(x, y, sound) {
 	let gemImages = ['images/gem-blue.png',
 	'images/gem-orange.png',
