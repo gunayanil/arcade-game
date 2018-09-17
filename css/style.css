@@ -8,7 +8,80 @@ body {
 	font-weight: bold;
 	font-family: 'Arial', 'Open Sans', sans-serif;
 	margin: 0;
-	color: #c0751b;
 	background: url(../images/back.png) no-repeat center center fixed;
 	background-size: cover;
+}
+
+#main {
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#top-level {
+  color: red;
+  font-weight: bold;
+}
+
+#sidebar {
+  min-height: 586px;
+  background-color: #fff;
+  border: 3px outset #006278;
+}
+
+h2, h3 {
+	margin-bottom: 0 !important;
+ 
+}
+
+hr {
+  border-top: 1px solid #dfd9c8;
+}
+
+.navbar {
+  color: #fff;
+  margin-bottom: 15px !important;
+}
+
+.navbar-default {
+  background-color: #2fc881;
+  border-bottom: 2px solid #2CBC77;
+}
+
+.navbar-default .navbar-brand {
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 2px #006400;
+}
+
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+.arrows, .how-to-play {
+  margin: 0 auto;
+}
+
+.arrow {
+  text-shadow: 0 0 3px #bfa661;
+  color: #CB711A;
+  background-color: #eae7db;
+  text-align: center;
+  margin: 3px;
+  padding: 5px 7px;
+  font-size: 1.5em;
+  border-radius: 5px;
+  border: 1px solid #dfd9c8;
+}
+
+.thumb {
+  width: 50px;
+}
+
+.text {
+  text-align: ceter;
+  padding: 22px 0 0 5px;
 }
