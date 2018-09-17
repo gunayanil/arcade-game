@@ -20,8 +20,9 @@
      ctx = canvas.getContext('2d'),
      lastTime;
      canvas.width = 707;
-     canvas.height = 606;
-     doc.body.appendChild(canvas);
+     canvas.height = 586;
+     doc.getElementById('game').appendChild(canvas);
+    /* doc.body.appendChild(canvas);*/
 
     /* The kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
