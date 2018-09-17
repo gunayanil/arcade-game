@@ -4,9 +4,61 @@
     <meta charset="UTF-8">
     <title>Arcade Game: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-	<h1>Score: <span id="score">0</span> Level: <span id="level">0</span></h1>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">FROGGER</a>
+    </div>
+</nav>
+
+<div id="main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div id="game"></div>
+      </div>
+      <div class="padding col-md-4">
+        <div id="sidebar">
+          <h2>Score: <span id="score">0</span></h2>
+          <h2>Level: <span id="level">0</span>/<span id="top-level">13</span></h2>
+          <hr>
+          <h3>How to Play</h3>
+          <br>
+          <table class="arrows">
+            <tr>
+              <td></td>
+              <td><div class="arrow"><i class="glyphicon glyphicon-arrow-up"></i></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><div class="arrow"><i class="glyphicon glyphicon-arrow-left"></i></div></td>
+              <td><div class="arrow"><i class="glyphicon glyphicon-arrow-down"></i></div></td>
+              <td><div class="arrow"><i class="glyphicon glyphicon-arrow-right"></i></div></td>
+            </tr>
+          </table>
+          <p>Use arrow keys to move your character</p>
+          <hr>
+          <table class="how-to-play">
+             <tr>
+              <td><img src="images/runner.png" alt="enemy bug" class="thumb"></td>
+              <td class="text">Enemies will accelerate</td>
+            </tr>
+            <tr>
+              <td><img src="images/enemy-bug.png" alt="enemy bug" class="thumb"></td>
+              <td class="text">Avoid the bug enemies</td>
+            </tr>
+            <tr>
+              <td><img src="images/water-block.png" alt="water block" class="thumb"></td>
+              <td class="text">Reach to the river!</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
