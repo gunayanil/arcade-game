@@ -102,13 +102,15 @@ Player.prototype.update = function(){
 	});
 
 	if(this.hearts === 0) {
+		const gameOver = new Sound("sounds/game-over.wav");
+		gameOver.play();
 		this.point = 0;
 		score.textContent = this.point;
 		breakpoint = false;
-		const gameOver = new Sound("sounds/game-over.wav");
-		gameOver.play();
 		putHearts();
 		player.reset()
+		setTimeout(function() {document.location.reload()}, 1000);
+
 
 	}
 	// reaches the water
